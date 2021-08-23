@@ -22,10 +22,9 @@ namespace tests.isolated_integrations
 				            DbContext = new MySqlDbContext
 				                        {
 					                        HostName = "localhost",
-					                        PortNumber = 3306,
+					                        PortNumber = 13306,
 					                        Username = "root",
-					                        Password = "",
-					                        DatabaseName = "transient_db"
+					                        Password = "password"
 				                        },
 				            MaxRevisionsToKeep = 5
 			            };
@@ -48,10 +47,10 @@ namespace tests.isolated_integrations
 		public void ShowSuccessResults(int expectedToSuccess, int expectedToRetrieve, params string[] args)
 		{
 			using var db = new MySqlEphemeralDb(_settings.DbContext.GetConnectionString(false))
-			               .SetDatabaseName(_settings.DbContext.DatabaseName)
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
+			_settings.DbContext.DatabaseName = db.DatabaseName;
 			_sut.Run(args);
 			_consoleMock.Verify(console=> console.WriteLine(It.Is<string>(s => s.EndsWith(".html retrieved successfully !"))), Times.Exactly(expectedToSuccess));
 			_consoleMock.Verify(console=> console.WriteLine($"{expectedToRetrieve} snippets retrieved."), Times.Once());
@@ -64,10 +63,10 @@ namespace tests.isolated_integrations
 		public void ShowFailureResults(int expectedToFail, int expectedToRetrieve, params string[] args)
 		{
 			using var db = new MySqlEphemeralDb(_settings.DbContext.GetConnectionString(false))
-			               .SetDatabaseName(_settings.DbContext.DatabaseName)
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
+			_settings.DbContext.DatabaseName = db.DatabaseName;
 			_sut.Run(args);
 			_consoleMock.Verify(console=> console.WriteLine(It.Is<string>(s => s.EndsWith(".html could not be retrieved !"))), Times.Exactly(expectedToFail));
 			_consoleMock.Verify(console=> console.WriteLine($"{expectedToRetrieve} snippets retrieved."), Times.Once());
