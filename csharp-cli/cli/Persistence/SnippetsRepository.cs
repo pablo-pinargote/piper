@@ -20,7 +20,7 @@ namespace piper.cli.Persistence
 
 		public IEnumerable<string> GetAllNames()
 		{
-			using var cnn = new MySqlConnection(_context.GetConnectionString());
+			using var cnn = new MySqlConnection(Context.GetConnectionString());
 			cnn.Open();
 			using var cmd = new MySqlCommand(@"select name from djangocms_snippet_snippet", cnn);
 			using var reader = cmd.ExecuteReader();
@@ -30,7 +30,7 @@ namespace piper.cli.Persistence
 
 		public IEnumerable<Snippet> GetAll()
 		{
-			using var cnn = new MySqlConnection(_context.GetConnectionString());
+			using var cnn = new MySqlConnection(Context.GetConnectionString());
 			cnn.Open();
 			using var cmd = new MySqlCommand(@"select name, html from djangocms_snippet_snippet", cnn);
 			using var reader = cmd.ExecuteReader();
@@ -40,7 +40,7 @@ namespace piper.cli.Persistence
 
 		public IEnumerable<Snippet> GetByNames(IEnumerable<string> names)
 		{
-			using var cnn = new MySqlConnection(_context.GetConnectionString());
+			using var cnn = new MySqlConnection(Context.GetConnectionString());
 			cnn.Open();
 			using var cmd = new MySqlCommand(@"select name, html from djangocms_snippet_snippet  where find_in_set(name, @names) != 0", cnn);
 			cmd.Parameters.AddWithValue("@names", string.Join(",", names));
@@ -51,7 +51,7 @@ namespace piper.cli.Persistence
 
 		public Snippet GetMe(string name)
 		{
-			using var cnn = new MySqlConnection(_context.GetConnectionString());
+			using var cnn = new MySqlConnection(Context.GetConnectionString());
 			cnn.Open();
 			using var cmd = new MySqlCommand(@"select name, html from djangocms_snippet_snippet  where name = @name", cnn);
 			cmd.Parameters.AddWithValue("@name", string.Join(",", name));
@@ -61,7 +61,7 @@ namespace piper.cli.Persistence
 
 		public void UpdateHtmlContent(string name, string html)
 		{
-			using var cnn = new MySqlConnection(_context.GetConnectionString());
+			using var cnn = new MySqlConnection(Context.GetConnectionString());
 			using var cmd =
 				new MySqlCommand(
 					@"update djangocms_snippet_snippet set html=@html, template=@template, slug=@slug where name = @name",

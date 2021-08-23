@@ -1,5 +1,3 @@
-using System;
-
 namespace piper.cli.Persistence
 {
 	public class MySqlDbContext
@@ -10,9 +8,10 @@ namespace piper.cli.Persistence
 		public string Password { get; set; }
 		public string DatabaseName { get; set; }
 		
-		public string GetConnectionString()
+		public string GetConnectionString(bool includeDatabase=true)
 		{
-			return $"server={HostName};port={PortNumber};uid={Username};pwd={Password};database={DatabaseName}";
+			var serverConnectionString = $"server={HostName};port={PortNumber};uid={Username};pwd={Password}";
+			return includeDatabase ? $"{serverConnectionString};database={DatabaseName}" : serverConnectionString;
 		}
 
 	}

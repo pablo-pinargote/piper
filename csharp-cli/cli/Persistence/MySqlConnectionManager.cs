@@ -2,11 +2,11 @@ namespace piper.cli.Persistence
 {
 	public class MySqlConnectionManager
 	{
-		protected readonly MySqlDbContext _context;
+		protected readonly MySqlDbContext Context;
 
 		protected MySqlConnectionManager(MySqlDbContext context)
 		{
-			_context = context;
+			Context = context;
 		}
 	}
 }
