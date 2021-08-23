@@ -22,9 +22,9 @@ namespace tests.isolated_integrations
 				                DbContext = new MySqlDbContext
 				                            {
 					                            HostName = "localhost",
-					                            PortNumber = 3306,
+					                            PortNumber = 13306,
 					                            Username = "root",
-					                            Password = ""
+					                            Password = "password"
 				                            },
 				                MaxRevisionsToKeep = 5
 			                };
