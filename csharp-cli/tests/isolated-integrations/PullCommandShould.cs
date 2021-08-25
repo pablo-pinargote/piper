@@ -50,7 +50,7 @@ namespace tests.isolated_integrations
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
-			_settings.DbContext.DatabaseName = db.DatabaseName;
+			_settings.DbContext.DatabaseName = db.Name;
 			_sut.Run(args);
 			_consoleMock.Verify(console=> console.WriteLine(It.Is<string>(s => s.EndsWith(".html retrieved successfully !"))), Times.Exactly(expectedToSuccess));
 			_consoleMock.Verify(console=> console.WriteLine($"{expectedToRetrieve} snippets retrieved."), Times.Once());
@@ -66,7 +66,7 @@ namespace tests.isolated_integrations
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
-			_settings.DbContext.DatabaseName = db.DatabaseName;
+			_settings.DbContext.DatabaseName = db.Name;
 			_sut.Run(args);
 			_consoleMock.Verify(console=> console.WriteLine(It.Is<string>(s => s.EndsWith(".html could not be retrieved !"))), Times.Exactly(expectedToFail));
 			_consoleMock.Verify(console=> console.WriteLine($"{expectedToRetrieve} snippets retrieved."), Times.Once());
