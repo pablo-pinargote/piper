@@ -39,7 +39,7 @@ namespace tests.isolated_integrations
 			                  .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			                  .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			                  .Build();
-			_settings.DbContext.DatabaseName = db.DatabaseName;
+			_settings.DbContext.DatabaseName = db.Name;
 			_sut.Run("list");
 			_consoleMock.Verify(console => console.WriteLine($"Listing 3 snippets."), Times.Once);
 		}
@@ -51,7 +51,7 @@ namespace tests.isolated_integrations
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
-			_settings.DbContext.DatabaseName = db.DatabaseName;
+			_settings.DbContext.DatabaseName = db.Name;
 			_sut.Run("list");
 			_consoleMock.Verify(console => console.WriteLine(It.Is<string>(s=>s.EndsWith(".html"))), Times.Exactly(3));
 		}
@@ -63,7 +63,7 @@ namespace tests.isolated_integrations
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-creation-script.sql")
 			               .AddScriptFromFile("isolated-integrations/sql-files/snippets-table-mock-data.sql")
 			               .Build();
-			_settings.DbContext.DatabaseName = db.DatabaseName;
+			_settings.DbContext.DatabaseName = db.Name;
 			_sut.Run("list");
 			_consoleMock.Verify(console => console.WriteLine("List command excecuted successfully."), Times.Once);
 		}
