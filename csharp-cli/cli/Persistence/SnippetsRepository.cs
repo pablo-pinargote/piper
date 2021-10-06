@@ -65,7 +65,7 @@ namespace piper.cli.Persistence
 			cnn.Open();
 			using var cmd =
 				new MySqlCommand(
-					@"update djangocms_snippet_snippet set html=@html, template=@template, slug=@slug where name = @name",
+					@"update djangocms_snippet_snippet set html=@html where name = @name",
 					cnn);
 			cmd.Parameters.AddWithValue("@name", name);
 			cmd.Parameters.AddWithValue("@html", html);
