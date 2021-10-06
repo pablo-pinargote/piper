@@ -62,6 +62,7 @@ namespace piper.cli.Persistence
 		public void UpdateHtmlContent(string name, string html)
 		{
 			using var cnn = new MySqlConnection(Context.GetConnectionString());
+			cnn.Open();
 			using var cmd =
 				new MySqlCommand(
 					@"update djangocms_snippet_snippet set html=@html, template=@template, slug=@slug where name = @name",
